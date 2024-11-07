@@ -12,6 +12,7 @@ SPACE	[ \t]+
 
 
 {SECTION}{SPACE}".data"		{return SEC_DATA;}
+{SECTION}{SPACE}".bss"		{label = strdup(yytext); return SEC_BSS;}
 "db"				{return DB_TYPE;}
 "dw"				{return DW_TYPE;}
 "dd"				{return DD_TYPE;}

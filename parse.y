@@ -20,13 +20,15 @@ lines: line
 	|
 	;
 
-line: data_sec	{puts("data parsing done");}
+line: data_sec line 
+	| bss_sec line
+	|
 	;
 
-data_sec: SEC_DATA NEWLINE data_lines {puts("parsing data section");}
+data_sec: SEC_DATA NEWLINE data_lines
 	;
 
-data_lines: data_line NEWLINE data_lines {puts("line");}
+data_lines: data_line NEWLINE data_lines
 	| NEWLINE data_lines
 	|
 	;
@@ -34,6 +36,8 @@ data_lines: data_line NEWLINE data_lines {puts("line");}
 data_line: LABEL DB_TYPE VALUE {printf("%d\t %s db %s\n",loc,label,value); loc += 1;}
 	|  LABEL DW_TYPE VALUE {printf("%d\t %s dw %s\n",loc,label,value); loc += 2;}
 	|  LABEL DD_TYPE VALUE {printf("%d\t %s dd %s\n",loc,label,value); loc += 4;}
+	;
+bss_sec: SEC_BSS {printf("%s\n",label);}
 	;
 %%
 
