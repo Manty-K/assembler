@@ -40,16 +40,16 @@ void parsenum(long  n,enum ByteType bt){
 
 	if(bt == BYTE){
 
-		printf("%02lX\n",n);
+		printf("%02lX",n);
 	}else if(bt == WORD){
 
-		printf("%04lX\n",n);
+		printf("%04lX",n);
 	}else if(bt == DWORD){
 
-		printf("%08lX\n",n);
+		printf("%08lX",n);
 	}else if(bt == QUAD){
 
-		printf("%06lX\n",n);
+		printf("%06lX",n);
 	}else{
 		puts("Not Defined");
 	}	
@@ -58,18 +58,19 @@ void parsenum(long  n,enum ByteType bt){
 void parsestr(char * s ,enum ByteType bt ){
 
 	int i = 0;	
-	while(( *(s+i) != 0)){
+	while( *(s+i) != 0){
 
 		printf("%02X",*(s+i));
 		i++;
 	}
 
 	int r = strlen(s) %  bt;
-	
 
-	for (i = 0 ; i< bt -r; i++){
-		printf("00");
+	if(bt > 1 && r != 0){
+		for (i = 0 ; i< bt -r; i++){
+			printf("00");
+		}
 	}
-	printf("\n");
+	//printf("\n");
 }
 

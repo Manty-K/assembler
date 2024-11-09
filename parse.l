@@ -27,7 +27,13 @@ RES	"res"[bwtqd]
 "rest"				{return REST_TYPE;}
 ,				{return COMMA;}
 {ALPNUM}			{label = strdup(yytext); return LABEL;}
-\"([^\"]*)\"			{return STRING;}
+  /*\"([^\"]*)\"			{value = strdup(yytext); return STRING;} */
+\"([^\"]*)\"			{
+				
+				strncpy(value, yytext + 1,yyleng-2); // strdup without the leading quote
+    				 // remove the trailing quote
+    				return STRING; 
+				}
 {NUMBER}			{value = strdup(yytext); return VALUE;}
 \n		{return NEWLINE;}
 {SPACE}		{}
