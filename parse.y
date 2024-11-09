@@ -17,13 +17,12 @@ int loc = 0;
 
 %%
 
-lines: line
-	|
+lines: lines line
+	| line
 	;
 
-line: data_sec line 
-	| bss_sec line
-	|
+line: data_sec
+	| bss_sec
 	;
 
 data_sec: SEC_DATA NEWLINE {puts("\t\t\t\tsection .data");loc=0;}data_lines
