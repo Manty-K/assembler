@@ -27,6 +27,7 @@ RES	"res"[bwtqd]
 "rest"				{return REST_TYPE;}
 
 {ALPNUM}			{label = strdup(yytext); return LABEL;}
+\"([^\"]*)\"			{return STRING;}
 {NUMBER}			{value = strdup(yytext); return VALUE;}
 \n		{return NEWLINE;}
 {SPACE}		{}
