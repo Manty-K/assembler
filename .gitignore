@@ -3,4 +3,5 @@ lex.yy.c
 *.o
 *.s
 *.lst
+*.swp
 yoo
