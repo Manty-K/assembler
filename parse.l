@@ -1,5 +1,6 @@
 %{
 #include "parse.tab.h"
+#include "utils.h"
 char *label;
 char *value;
 %}

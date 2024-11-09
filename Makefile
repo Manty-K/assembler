@@ -2,7 +2,7 @@ all: yoo
 	./yoo < src.s
 
 yoo: lex.yy.c parse.tab.c
-	gcc  parse.tab.c lex.yy.c -ll -o yoo
+	gcc  parse.tab.c lex.yy.c utils.c -ll -o yoo
 
 lex.yy.c: parse.l
 	flex parse.l
