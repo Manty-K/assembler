@@ -10,7 +10,7 @@ extern char * value;
 int loc = 0;
 %}
 
-%token SEC_DATA SEC_BSS SEC_TEXT LABEL VALUE DB_TYPE DW_TYPE DD_TYPE DQ_TYPE DT_TYPE  NEWLINE RESB_TYPE RESW_TYPE RESD_TYPE RESQ_TYPE REST_TYPE STRING
+%token SEC_DATA SEC_BSS SEC_TEXT LABEL VALUE DB_TYPE DW_TYPE DD_TYPE DQ_TYPE DT_TYPE  NEWLINE RESB_TYPE RESW_TYPE RESD_TYPE RESQ_TYPE REST_TYPE STRING COMMA
 
 
 %start lines
@@ -33,10 +33,18 @@ data_lines: data_line NEWLINE data_lines
 	|
 	;
 
-data_line: LABEL DB_TYPE VALUE {printf("%08X %02X\t\t\t\t%s db %s\n",loc,atoi(value),label,value); loc += 1;}
+data_line: LABEL DB_TYPE values {printf("%08X %02X\t\t\t\t%s db %s\n",loc,atoi(value),label,value); loc += 1;}
 	|  LABEL DW_TYPE VALUE {printf("%08X %04X\t\t\t\t%s dw %s\n",loc,atoi(value),label,value); loc += 2;}
 	|  LABEL DD_TYPE VALUE {printf("%08X %08X\t\t\t%s dd %s\n",loc,atoi(value),label,value); loc += 4;}
 	|  LABEL DQ_TYPE VALUE {printf("%08X %016X\t\t%s dq %s\n",loc,atoi(value),label,value); loc += 8;}
+	;
+
+values: val
+	| val COMMA values
+	;
+
+val:	VALUE
+	| STRING
 	;
 
 bss_sec: SEC_BSS {puts("\t\t\t\tsection .bss"); loc =0;} NEWLINE bss_lines
